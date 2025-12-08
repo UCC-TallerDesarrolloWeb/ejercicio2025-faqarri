@@ -1,0 +1,24 @@
+body{
+    text-align: center;
+    font-family: "Merriweather", serif;
+    background: linear-gradient(to right, rgb(110, 233, 182), rgb(87, 165, 132));
+}
+
+div{
+    border: 2px dashed rgb(55, 55, 55);
+    border-radius: 15px;
+    margin: 10px;
+    padding: 5px 30px;
+    box-shadow: 5px 5px 3px rgb(55, 55, 55);
+}
+
+#principal{
+    width: 50px;
+    float: left;
+    border-radius: 50%;
+}
+
+div.especial h3{
+    font-family: "Montserrat", sans-serif;
+    text-shadow: 5px 5px 3px rgb(55, 55, 55);
+}
