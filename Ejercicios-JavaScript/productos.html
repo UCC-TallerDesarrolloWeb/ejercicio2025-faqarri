@@ -3,9 +3,9 @@
 <head>
     <title>Catálogo de Productos</title>
     <link rel="stylesheet" href="catalogo.css" type="text/css">
-    <script type="text/javascript" src="funciones.js"></script>
+    <script type="text/javascript" src="tienda.js"></script>
 </head>
-<body class="grid-container">
+<body class="grid-container" onload="cargarProductos()">
     <header class="item1">
         Catálogo de productos
     </header>
@@ -48,42 +48,13 @@
             </fieldset>
         </form>
     </aside>
-    <main class="item4">
-        <dialog id="modal">
-            <h2>Detalle del Porducto</h2>
-            <h3>Cabezal Cerrado</h3>
-            <p>
-                Cabezal de Sparring. Disponible del tallle 1 al 3. En color rojo y azul.
-            </p>
-            <button type="button" onclick="cerrarModal()">Cerrar</button>
-        </dialog>
-        <div>
-            <img src="images/cabezal-cerrado.webp" alt="Cabezal Cerrado">
-            <h3>Cabezal</h3>
-            <button type="button" onclick="mostrarModal()">
-                Ver Detalle del Producto
-            </button>
-        </div>
-        <div>
-            <img src="images/foco-con-dedos.webp" alt="Foco con dedos">
-            <h3>Foco con dedo</h3>
-        </div>
-        <div>
-            <img src="images/protectores-manos.webp" alt="Protectores de manos">
-            <h3>Protectores de manos</h3>
-        </div>
-        <div>
-            <img src="images/escudo-potencia.webp" alt="Escudo de potencia">
-            <h3>Escudo de potencia</h3>
-        </div>
-        <div>
-            <img src="images/dobok.webp" alt="Dobok">
-            <h3>Dobok</h3>
-        </div>
-        <div>
-            <img src="images/protectores-pie.webp" alt="Protectores de pies">
-            <h3>Protectores de pies</h3>
-        </div>
+    <dialog id="modal">
+        <h2>Detalle del Producto</h2>
+        <h3 id="tituloProducto"></h3>
+        <p id="descrProducto"></p>
+        <button type="button" onclick="cerrarModal()">Cerrar</button>
+    </dialog>
+    <main class="item4" id="mostrarCatalogo">
     </main>
     <footer class="item5">
         Contacto
