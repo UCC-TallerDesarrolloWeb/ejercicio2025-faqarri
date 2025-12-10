@@ -11,7 +11,7 @@ const productos = [
   },
   {
     nombre: "Dobok Dan",
-    description: "Bobok aprobado para torneos internacionales.",
+    description: "Dobok aprobado para torneos internacionales.",
     categoria: "Dobok",
     marca: "Daedo",
     talle: ["1", "2", "3", "4", "5", "6", "7", "8"],
@@ -146,12 +146,12 @@ let cerrarModal = () => {
 
 let filtrarProductos = () => {
   let searchWord = document.getElementById("search").value;
-  /*let min = document.getElementById("min").value;
-  let max = document.getElementById("max").value;
+  let min = document.getElementById("priceMin").value;
+  let max = document.getElementById("priceMax").value;
   let marca = document.getElementById("marca").value;
   let prot = document.getElementById("protectores").checked;
   let entr = document.getElementById("entrenamiento").checked;
-  let dob = document.getElementById("dobok").checked;*/
+  let dob = document.getElementById("dobok").checked;
 
   let newLista = productos;
 
@@ -159,6 +159,35 @@ let filtrarProductos = () => {
     newLista = newLista.filter(
       (prod) => prod.nombre.toLowerCase().includes(searchWord.toLowerCase()) || prod.description.toLowerCase().includes(searchWord.toLowerCase())
     );
+  }
+
+  if(min){
+    newLista = newLista.filter(
+      (prod) => prod.precio >= min
+    );
+  }
+
+  if(max){
+    newLista = newLista.filter(
+      (prod) => prod.precio <= max
+    );
+  }
+
+  if(marca !== "Todas"){
+    newLista = newLista.filter(
+      (prod) => prod.marca === marca
+    );
+  }
+
+  let category = [];
+  prot ? category.push("Protectores") : "";
+  entr ? category.push("Entrenamiento") : "";
+  dob ? category.push("Dobok") : "";
+
+  if(category.length > 0){
+    newLista = newLista.filter(
+      (prod) => category.includes(prod.categoria)
+    )
   }
 
   cargarProductos(newLista);
