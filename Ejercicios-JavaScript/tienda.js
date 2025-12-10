@@ -69,7 +69,7 @@ let cargarProductos = (prod = productos) => {
     contenido += `<div>
       <img src="images/${elemento.imagen}" alt="${elemento.nombre}">
       <h3>${elemento.nombre}</h3>
-      <p>${elemento.precio}</p>
+      <p>${formatPrice(elemento.precio)}</p>
       <button type="button" onclick="mostrarModal(${id})">
       Ver Detalle del Producto
       </button>
@@ -93,6 +93,7 @@ let agregarAlCarrito = (id) => {
 
   console.log(carritoList)
   localStorage.setItem("carrito", JSON.stringify(carritoList));
+  contarProductos();
 };
 
 let cargarCarrito = () => {
@@ -107,7 +108,7 @@ let cargarCarrito = () => {
     carritoList.forEach((num, id) => {
       contenido += `<div>
         <h3>${productos[num].nombre}</h3>
-        <p>${productos[num].precio}</p>
+        <p>${formatPrice(productos[num].precio)}</p>
         <button type="button" onclick="eliminarProducto(${id})">Eliminar Producto</button>
       </div>`
     })
@@ -118,6 +119,7 @@ let cargarCarrito = () => {
 
 let vaciarCarrito = () => {
   localStorage.removeItem("carrito");
+  contarProductos();
   window.location.reload();
 };
 
@@ -131,6 +133,7 @@ let eliminarProducto = (id) => {
   } else {
     localStorage.removeItem("carrito");
   }
+  contarProductos();
   window.location.reload();
 }
 
@@ -192,3 +195,18 @@ let filtrarProductos = () => {
 
   cargarProductos(newLista);
 };
+
+let formatPrice = (price) => {
+  return new Intl.NumberFormat("es-AR", {
+    currency: "ARS",
+    style: "currency"
+  }).format(price);
+}
+
+let contarProductos = () => {
+  const getCart = JSON.parse(localStorage.getItem("carrito"));
+
+  if(getCart != null){
+    document.getElementById("cantProd").innerText = getCart.length;
+  }
+}

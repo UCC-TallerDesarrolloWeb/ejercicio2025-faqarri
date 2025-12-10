@@ -5,13 +5,14 @@
     <link rel="stylesheet" href="catalogo.css" type="text/css">
     <script type="text/javascript" src="tienda.js"></script>
 </head>
-<body class="grid-container" onload="cargarCarrito()">
+<body class="grid-container" onload="cargarCarrito(); contarProductos()">
     <header class="item1">
         Carrito
     </header>
     <nav class="item2">
         <a href="productos.html">Catálogo de Productos</a>
         <a href="carrito.html">Carrito de compras</a>
+        <div id="cantProd">0</div>
     </nav>
     <main class="item4" id="mostrarCarrito">
     </main>
