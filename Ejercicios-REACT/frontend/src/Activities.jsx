@@ -1,3 +1,5 @@
+import "./Activities.css";
+
 const Activities = () => {
     const activities = [
         {
@@ -20,19 +22,24 @@ const Activities = () => {
 
     const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
+    const handleInscription = (nombreActividad) => {
+        alert(`Inscripto en ${nombreActividad}`);
+    }
+
     return (
         <div className="activitiesContainer">
             {activities.map((activity, index) => (
                 <div className="activityCard" key={index}>
                     <h3>{activity.nombre}</h3>
-                    <p>{ac.descripcion}</p>
+                    <p>{activity.descripcion}</p>
                     <ul>
-                        {activities.horarios.map((horario, i) => (
+                        {activity.horarios.map((horario, i) => (
                             <li key={i}>
-                                Día: (horario.dia)
+                                Día: {diasSemana[horario.dia]} - Hora de inicio: {horario["hora-inicio"]} - Hora de fin: {horario["hora-fin"]}
                             </li>
                         ))}
                     </ul>
+                    <button onClick={() => handleInscription(activity.nombre)}>Inscribir</button>
                 </div>
             ))}
         </div>
