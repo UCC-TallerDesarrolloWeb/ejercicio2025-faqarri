@@ -97,24 +97,44 @@ let agregarAlCarrito = (id) => {
 };
 
 let cargarCarrito = () => {
-  let carritoList = localStorage.getItem("carrito");
   let contenido = "";
+  let carritoList = localStorage.getItem("carrito");
+  const carrito = JSON.parse(localStorage.getItem("carrito"))
+  let total = 0;
+
+  if(carrito != null) {
+    const listProd = [];
+    const listCant = [];
+
+    carrito.forEach((num) => {
+      if(!listProd.includes(num)){
+        listProd.push(num);
+        listCant.push(1);
+      }else{
+        const inx = listProd.indexOf(num);
+        listCant[inx] += 1;
+      }
+    });
 
   if(carritoList == null){
     contenido = "<div>Su carrito está vacio.</div>"
   }else{
-    carritoList = JSON.parse(carritoList);
-
-    carritoList.forEach((num, id) => {
+    listProd.forEach((num, id) => {
+      const element = productos[num];
       contenido += `<div>
-        <h3>${productos[num].nombre}</h3>
-        <p>${formatPrice(productos[num].precio)}</p>
+        <h3>${element.nombre}</h3>
+        <p>${formatPrice(element.precio)}</p>
+        <p>Cantidad: ${listCant[id]}</p>
         <button type="button" onclick="eliminarProducto(${id})">Eliminar Producto</button>
       </div>`
+
+      total += element.precio * listCant[id];
     })
-    contenido += `<button type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>`
+    contenido += `Total: ${formatPrice(total)}`;
+    contenido += `<button type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>`;
   }
   document.getElementById("mostrarCarrito").innerHTML = contenido;
+  }
 };
 
 let vaciarCarrito = () => {
@@ -209,4 +229,45 @@ let contarProductos = () => {
   if(getCart != null){
     document.getElementById("cantProd").innerText = getCart.length;
   }
+}
+
+let orderCatalogo = () => {
+  const opt = document.getElementById("order").value;
+  let newProductos;
+
+  switch (opt) {
+    case "menor":
+      newProductos = productos.sort((a, b) => a.precio - b.precio)
+      break;
+  
+    case "mayor":
+      newProductos = productos.sort((a, b) => b.precio - a.precio)
+      break;
+  
+    case "a-z":
+      newProductos = productos.sort((a, b) => {
+        if(a.nombre.toUpperCase() < b.nombre.toUpperCase()){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+      break;
+    
+    case "z-a":
+      newProductos = productos.sort((a, b) => {
+        if(a.nombre.toUpperCase() > b.nombre.toUpperCase()){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+      break;
+
+    default:
+      newProductos = productos.sort((a, b) => a.precio - b.precio)
+      break;
+  }
+
+  cargarProductos(newProductos);
 }
