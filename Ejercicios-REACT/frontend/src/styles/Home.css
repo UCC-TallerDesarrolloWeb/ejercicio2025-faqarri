@@ -1,0 +1,10 @@
+.cardHome{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 15px 30x;
+    text-align: center;
+}
+
+.cardHome img{
+    width: 80%;
+}
